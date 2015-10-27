@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Restaurant Catalog Webapp</h1>
+<hr>
+
+<div class="restaurantlist">
+    {% for each in restaurants %}
+    <ul>
+        <li>
+            {{each.name}}
+            <a href="{{url_for('editRestaurant', restaurant_id=each.id) }}">
+                Edit |
+            </a>
+            <a href="{{url_for('deleteRestaurant', restaurant_id=each.id) }}">
+                Delete
+            </a>
+        </li>
+    </ul>
+    {% endfor %}
+    <hr>
+</div>
+
+
+<div class="footer">
+    <a href="{{url_for('addRestaurant')}}">
+        Add new restaurant
+    </a>
+</div>
+
+
+</body>
+</html>
