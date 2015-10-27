@@ -41,22 +41,23 @@ def restaurantList():
 # 2. Add new restaurant routing
 @app.route('/restaurants/newrestaurant')
 def addRestaurant():
-    return "Add new restaurant page"
+    return render_template('newrestaurant.html')
 
 # 3. Edit Restaurant routing
 @app.route('/restaurants/<int:restaurant_id>/edit')
 def editRestaurant(restaurant_id):
-    return "Edit existing restaurant"
+    # editItem = (each for each in restaurants if each["id"] == restaurant_id).next()
+    return render_template('editrestaurant.html', restaurant=restaurant)
 
 # 4. Delete Restaurant Routing
 @app.route('/restaurants/<int:restaurant_id>/delete')
 def deleteRestaurant(restaurant_id):
-    return "Delete Existing Restaurant"
+    return render_template('deleterestaurant.html', restaurant=restaurant)
 
 # 5. Restaurant Menu Listing Routing
-@app.route('/restaurants/<int:restaurant_id>')
+@app.route('/restaurants/<int:restaurant_id>/')
 def menuList(restaurant_id):
-    return "List menu items"
+    return render_template('menu.html', restaurant=restaurant, items=items)
 
 # 6. Add new menu item routing
 @app.route('/restaurants/<int:restaurant_id>/newitem')

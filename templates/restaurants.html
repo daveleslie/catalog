@@ -12,7 +12,12 @@
     {% for each in restaurants %}
     <ul>
         <li>
-            {{each.name}}
+            <p>
+                <a href="{{url_for('menuList', restaurant_id=each.id)}}">
+                    {{each.name}}
+                </a>
+            </p>
+
             <a href="{{url_for('editRestaurant', restaurant_id=each.id) }}">
                 Edit |
             </a>

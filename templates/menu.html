@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h1>{{restaurant.name}}</h1>
+<hr>
+
+<div class="menulist">
+    {% for each in items %}
+    <span class="name">{{each.name}}</span>
+    <span class="price">{{each.price}}</span>
+    <span class="course">{{each.course}}</span>
+    <span class="description">{{each.description}}</span>
+    <div class="editdeletepane">
+        <a href="#">Edit</a>
+        <a href="#">Delete</a>
+    </div>
+    <br/>
+    <br/>
+    {% endfor %}
+</div>
+
+</body>
+</html>
