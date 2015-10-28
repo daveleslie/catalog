@@ -62,18 +62,17 @@ def menuList(restaurant_id):
 # 6. Add new menu item routing
 @app.route('/restaurants/<int:restaurant_id>/newitem')
 def addMenuItem(restaurant_id):
-    return "add new menu item"
+    return render_template('newmenuitem.html', restaurant=restaurant)
 
 # 7. Edit Menu item routing
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit')
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/')
 def editMenuItem(restaurant_id, menu_id):
-    return "edit menu item"
+    return render_template('editmenuitem.html', restaurant=restaurant, item=item)
 
 # 8. Delete Menu Item routing
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete')
 def deleteMenuItem(restaurant_id, menu_id):
-    return "delete menu item"
-
+    return render_template('deletemenuitem.html', restaurant=restaurant, item=item)
 
 
 if __name__ == '__main__':

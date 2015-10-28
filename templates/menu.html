@@ -16,13 +16,23 @@
     <span class="course">{{each.course}}</span>
     <span class="description">{{each.description}}</span>
     <div class="editdeletepane">
-        <a href="#">Edit</a>
-        <a href="#">Delete</a>
+        <a href="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id = each.id)}}">
+            Edit
+        </a>
+        <a href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=each.id)}}">
+            Delete
+        </a>
     </div>
     <br/>
     <br/>
     {% endfor %}
+    <a href="{{url_for('addMenuItem', restaurant_id=restaurant.id)}}">Add new menu item</a>
+    <hr>
 </div>
+<p>
+    <a href="{{url_for('restaurantList')}}">Cancel</a>
+
+</p>
 
 </body>
 </html>
