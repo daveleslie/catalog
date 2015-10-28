@@ -1,10 +1,14 @@
 __author__ = 'David'
 
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, flash, request, redirect, \
+    jsonify
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from database_setup import Base, Restaurant, MenuItem
 
 
 #Fake Restaurants
-restaurant = {'name': 'The CRUDdy Crab', 'id': '1'}
+# restaurant = {'name': 'The CRUDdy Crab', 'id': '1'}
 
 restaurants = [{'name': 'The CRUDdy Crab', 'id': '1'},
                {'name':'Blue Burgers', 'id':'2'},
@@ -32,10 +36,17 @@ item =  {
 
 app = Flask(__name__)
 
+engine = create_engine('sqlite:///restaurantcatalog.db')
+Base.metadata.bind = engine
+
+DBSession = sessionmaker(bind=engine)
+session = DBSession()
+
 # 1. Home Page Routing
 @app.route('/')
 @app.route('/restaurants')
 def restaurantList():
+    restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants)
 
 # 2. Add new restaurant routing
