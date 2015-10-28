@@ -47,12 +47,20 @@ session = DBSession()
 @app.route('/restaurants')
 def restaurantList():
     restaurants = session.query(Restaurant).all()
+    flash("test message")
     return render_template('restaurants.html', restaurants=restaurants)
 
 # 2. Add new restaurant routing
-@app.route('/restaurants/newrestaurant')
+@app.route('/restaurants/newrestaurant/', methods=['GET', 'POST'] )
 def addRestaurant():
-    return render_template('newrestaurant.html')
+    if request.method == 'POST':
+        newRestaurant = Restaurant(name=request.form['name'])
+        session.add(newRestaurant)
+        session.commit()
+        flash("New Restaurant Created")
+        return redirect(url_for('restaurantList'))
+    else:
+        return render_template('newrestaurant.html')
 
 # 3. Edit Restaurant routing
 @app.route('/restaurants/<int:restaurant_id>/edit')
@@ -68,6 +76,10 @@ def deleteRestaurant(restaurant_id):
 # 5. Restaurant Menu Listing Routing
 @app.route('/restaurants/<int:restaurant_id>/')
 def menuList(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
+    if items == []:
+        flash("No menu items to display")
     return render_template('menu.html', restaurant=restaurant, items=items)
 
 # 6. Add new menu item routing
@@ -87,6 +99,7 @@ def deleteMenuItem(restaurant_id, menu_id):
 
 
 if __name__ == '__main__':
+    app.secret_key = 'secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
 
