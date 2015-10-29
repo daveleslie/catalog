@@ -10,7 +10,7 @@
     <hr>
 </div>
 <h3>Add new menu item</h3>
-<form action="#" method="post">
+<form action="{{url_for('addMenuItem', restaurant_id=restaurant.id)}}" method="POST">
     <p>Name:</p>
     <input type="text" size="30" name="name">
     <p>Price:</p>

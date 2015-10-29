@@ -10,7 +10,7 @@
     <hr>
 </div>
 <h3>Edit menu item: {{item.name}}</h3>
-<form action="#" method="post">
+<form action="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id=item.id)}}" method="post">
     <p>Name:</p>
     <input type="text" size="30" name="name" placeholder="{{item.name}}">
     <p>Price:</p>
