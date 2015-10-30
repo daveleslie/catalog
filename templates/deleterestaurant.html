@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
 </head>
 <body>
-<h1> Are you sure you want to delete {{restaurant.name}}? </h1>
 
+<h1> Are you sure you want to delete {{restaurant.name}}? </h1>
+&nbsp;
 <form action="{{url_for('deleteRestaurant', restaurant_id=restaurant.id)}}" method = 'POST'>
 
     <input type='submit' value='Delete'>

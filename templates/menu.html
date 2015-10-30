@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
 </head>
 <body>
+<div class="header">
 
-<h1>{{restaurant.name}}</h1>
-<hr>
+
+</div>
+
 <div class="flash">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -19,8 +22,10 @@
     {% endif %}
     {% endwith %}
 </div>
-
-<div class="menulist">
+<div class="pane">
+    <h1>{{restaurant.name}}</h1>
+    &nbsp;
+    &nbsp;
     {% for each in items %}
     <span class="name">{{each.name}}</span>
     <span class="price">{{each.price}}</span>
@@ -28,7 +33,7 @@
     <span class="description">{{each.description}}</span>
     <div class="editdeletepane">
         <a href="{{url_for('editMenuItem', restaurant_id=restaurant.id, menu_id = each.id)}}">
-            Edit
+            Edit |
         </a>
         <a href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=each.id)}}">
             Delete
@@ -37,8 +42,11 @@
     <br/>
     <br/>
     {% endfor %}
-    <a href="{{url_for('addMenuItem', restaurant_id=restaurant.id)}}">Add new menu item</a>
     <hr>
+    <div class="footer">
+        <a href="{{url_for('addMenuItem', restaurant_id=restaurant.id)}}">Add new menu item</a>
+    </div>
+
 </div>
 <p>
     <a href="{{url_for('restaurantList')}}">Cancel</a>
