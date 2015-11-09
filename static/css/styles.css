@@ -2,3 +2,11 @@
     font-size: 1.2em;
     font-weight: 700;
 }
+
+.menu-item {
+    background: lightblue;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    padding: 3px;
+}

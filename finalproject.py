@@ -1,7 +1,7 @@
-from database_setup import Base, Restaurant, MenuItem
+from database_setup import Base, Restaurant, MenuItem, User
 from flask import Flask, render_template, url_for, flash, request, redirect, \
     jsonify
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from flask import session as login_session
 import random, string
@@ -17,6 +17,11 @@ __author__ = 'David'
 
 app = Flask(__name__)
 
+CLIENT_ID = json.loads(
+    open('client_secrets.json', 'r').read())['web']['client_id']
+APPLICATION_NAME = "Restaurant Menu App"
+
+
 engine = create_engine('sqlite:///restaurantcatalog.db')
 Base.metadata.bind = engine
 
@@ -24,11 +29,15 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 
-# testing
-@app.route('/test')
-def test():
-    restaurants = session.query(Restaurant).all()
-    return render_template('test.html', restaurants=restaurants)
+# testing urban burger
+@app.route('/test/<int:restaurant_id>/')
+def test(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant.id)\
+        .all()
+    if not items:
+        flash("No menu items to display")
+    return render_template('test.html', restaurant=restaurant, items=items)
 
 
 # Create anti-forgery state token
@@ -99,7 +108,7 @@ def gconnect():
         return response
 
     # Store the access token in the session for later use.
-    login_session['credentials'] = credentials
+    login_session['credentials'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -196,8 +205,10 @@ def gdisconnect():
 @app.route('/restaurants')
 def restaurantList():
     restaurants = session.query(Restaurant).all()
-    return render_template('restaurants.html', restaurants=restaurants)
-
+    if 'username' not in login_session:
+        return render_template('publicrestaurants.html', restaurants=restaurants)
+    else:
+        return render_template('restaurants.html', restaurants=restaurants)
 
 # 2. Add new restaurant routing
 @app.route('/restaurants/newrestaurant/', methods=['GET', 'POST'])

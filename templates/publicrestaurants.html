@@ -19,15 +19,9 @@
 </div>
 <div class="row panel">
     {% for each in restaurants %}
-    <div class="col-md-12 restaurantlist">
-        <ul>
-            <li>
-                <a href="{{url_for('menuList', restaurant_id=each.id)}}">
-                    <span class="restaurant">{{each.name}}</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+        <div class="list-group">
+            <a href="{{url_for('menuList', restaurant_id=each.id)}}" class="list-group-item restaurant">{{each.name}}</a>
+        </div>
     {% endfor %}
 
 </div>
