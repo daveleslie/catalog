@@ -25,28 +25,10 @@
                 <a href="{{url_for('menuList', restaurant_id=each.id)}}">
                     <span class="restaurant">{{each.name}}</span>
                 </a>
-                <div class="editdeletepane">
-                    <a href="{{url_for('editRestaurant', restaurant_id=each.id) }}">
-                        Edit |
-                    </a>
-                    <a href="{{url_for('deleteRestaurant', restaurant_id=each.id) }}">
-                        Delete
-                    </a>
-                </div>
             </li>
         </ul>
     </div>
     {% endfor %}
 
 </div>
-<div class="row panel">
-    <div class="col-md-12 text-center">
-        <h5>
-            <a href="{{ url_for('addRestaurant') }}">
-            Add new restaurant
-            </a>
-        </h5>
-    </div>
-</div>
-
 {% endblock %}
