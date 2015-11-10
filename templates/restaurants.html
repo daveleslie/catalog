@@ -18,30 +18,15 @@
     {% endwith %}
 </div>
 <div class="row panel">
-    {% for each in restaurants %}
-
-
-    <div class="list-group">
-        <div class="list-group-item">
-            <a href="{{url_for('menuList', restaurant_id=each.id)}}" class="restaurant">
-                {{each.name}}
-            </a>
-            <div class="editdeletepane">
-                <a href="{{url_for('editRestaurant', restaurant_id=each.id) }}">
-                    Edit |
+     <div class="col-md-6 col-md-offset-3">
+            <div class="list-group text-center">
+                {% for each in restaurants %}
+                <a href="{{url_for('menuList', restaurant_id=each.id)}}" class="list-group-item restaurant">
+                    {{each.name}}
                 </a>
-                <a href="{{url_for('deleteRestaurant', restaurant_id=each.id) }}">
-                    Delete
-                </a>
+                {% endfor %}
             </div>
-        </div>
-
-
     </div>
-
-
-    {% endfor %}
-
 </div>
 <div class="row panel">
     <div class="col-md-12 text-center">
