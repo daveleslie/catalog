@@ -213,6 +213,8 @@ def restaurantList():
 # 2. Add new restaurant routing
 @app.route('/restaurants/newrestaurant/', methods=['GET', 'POST'])
 def addRestaurant():
+    if 'username' not in login_session:
+        return redirect(url_for('/login'))
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'])
         session.add(newRestaurant)
