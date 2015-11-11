@@ -97,14 +97,13 @@ def gconnect():
     stored_credentials = login_session.get('credentials')
     stored_gplus_id = login_session.get('gplus_id')
     if stored_credentials is not None and gplus_id == stored_gplus_id:
-        response = make_response(json.dumps('Current user is already connected.'),
-                                 200)
+        response = make_response(json.dumps('Current user is already '
+                                            'connected.'),200)
         response.headers['Content-Type'] = 'application/json'
         return response
 
     # Store the access token in the session for later use.
     login_session['credentials'] = credentials.access_token
-    #login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
     # Get user info
@@ -122,7 +121,6 @@ def gconnect():
     if not user_id:
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
-
 
     output = ''
     output += '<h1>Welcome, '
@@ -294,7 +292,7 @@ def gdisconnect():
 
 # 1. Home Page Routing
 @app.route('/')
-@app.route('/restaurants')
+@app.route('/restaurants/')
 def restaurantList():
     restaurants = session.query(Restaurant).all()
     if 'username' not in login_session:
@@ -426,7 +424,7 @@ def restaurantListJSON():
 
 
 # API GET request for menu items list
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON/')
+@app.route('/restaurants/<int:restaurant_id>/JSON/')
 def restaurantMenuJSON(restaurant_id):
     items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)\
         .all()
@@ -434,7 +432,7 @@ def restaurantMenuJSON(restaurant_id):
 
 
 # API GET request for item details
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/JSON/')
 def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(itemDetails=[menuItem.serialize])
