@@ -11,6 +11,43 @@
     padding: 3px;
 }
 
+.padding-top {
+    padding-top: 20px;
+}
+
 .padding-bottom {
     padding-bottom: 20px;
 }
+
+.user img {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.user figcaption {
+    font-size: 14px;
+    font-weight: 400;
+    color: #7B7573;
+}
+
+.creator img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.creator figcaption {
+    font-size: 14px;
+    font-weight: bold;
+    color: #7B7573;
+}
+
+.flash {
+    background-color: powderblue;
+}
+
+.flash li {
+    list-style-type: none;
+    text-align: center;
+}
+
+
