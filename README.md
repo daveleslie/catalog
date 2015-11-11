@@ -15,5 +15,6 @@ data driven web application for managing users, and related catalogs of items re
 
 #### Running the Application
 7. Run python database_setup.py
+8. Run python db_pop_users.py for sample database (credit: provided by Udacity)
 8. Run python finalproject.py
 9. The web application will be hosted on port 5000 of your localhost (127.0.0.1:5000)
